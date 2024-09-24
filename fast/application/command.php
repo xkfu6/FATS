@@ -17,4 +17,5 @@ return [
     'app\admin\command\Min',
     'app\admin\command\Addon',
     'app\admin\command\Api',
+    'Jian1098\Tp5Validate\Command\Validate'
 ];
