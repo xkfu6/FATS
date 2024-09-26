@@ -29,8 +29,7 @@
         "ext-curl": "*",
         "ext-pdo": "*",
         "ext-bcmath": "*",
-        "txthinking/mailer": "^2.0",
-        "jian1098/tp5-validate": "dev-master"
+        "txthinking/mailer": "^2.0"
     },
     "config": {
         "preferred-install": "dist",
