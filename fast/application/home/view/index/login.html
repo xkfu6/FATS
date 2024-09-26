@@ -1,0 +1,41 @@
+<link rel="stylesheet" type="text/css" href="/assets/home/css/login.css" />
+
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <form class="login100-form validate-form" method="post">
+                <div class="login100-form-avatar wow">
+                    <img src="/assets/home/images/pexels-spencer-selover-428364.jpg" />
+                </div>
+
+                <div class="wrap-input100 validate-input wow" data-wow-delay="100ms">
+                    <input class="input100" type="text" name="mobile" placeholder="手机号码" value="18888888888" />
+                </div>
+
+                <div class="wrap-input100 validate-input wow" data-wow-delay="200ms">
+                    <input class="input100" type="password" name="password" placeholder="密码" value="123123" />
+                </div>
+
+                <div class="container-login100-form-btn wow" data-wow-delay="300ms">
+                    <button class="login100-form-btn">登 录 / 注册</button>
+                </div>
+
+                <div class="action">
+                    <a class="txt1 wow" data-wow-delay="500ms" href="index.html">返回首页 》</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    new WOW({
+        boxClass: 'wow',      // 需要执行动画的元素的 class(默认是wow)
+        animateClass: 'animated fadeInDown', // animation.css 动画的 class(默认是animated)
+        offset: 0,          // 距离可视区域多少开始执行动画(默认为0)
+        mobile: true,       // 是否在移动设备上执行动画(默认为true)
+        live: true,       // 异步加载的内容是否有效(默认为true)
+        scrollContainer: null // 可选滚动容器选择器，否则使用窗口
+    }).init();
+</script>

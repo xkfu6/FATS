@@ -507,3 +507,238 @@ EOT;
         return $icon;
     }
 }
+
+
+//----------------------------------------RickyFlex-----------------------------------------------------//
+if (!function_exists('build_encrypt')) {
+    /**
+     * 数据脱敏函数
+     * @param $string 需要脱敏值
+     * @param int $start 开始
+     * @param int $length 结束
+     * @param string $re 脱敏替代符号
+     * @return bool|string
+     * 例子:
+     * build_encrypt('13126989876', 3, 4); //131****9876
+     * build_encrypt('张三四', 0, -1); //**四
+     */
+    function build_encrypt($string, $start = 3, $length = 4, $re = '*')
+    {
+        //备份原值
+        $back = $string;
+
+        if (empty($string)) {
+            return false;
+        }
+
+        $strarr = [];
+        $mb_strlen = mb_strlen($string);
+
+        //循环把 字符串 变为数组
+        while ($mb_strlen) {
+            $strarr[] = mb_substr($string, 0, 1, 'utf8');
+            $string = mb_substr($string, 1, $mb_strlen, 'utf8');
+            $mb_strlen = mb_strlen($string);
+        }
+
+        $strlen = count($strarr);
+        $begin = $start >= 0 ? $start : ($strlen - abs($start));
+        $end = $last = $strlen - 1;
+        if ($length > 0) {
+            $end = $begin + $length - 1;
+        } elseif ($length < 0) {
+            $end -= abs($length);
+        }
+
+        for ($i = $begin; $i <= $end; $i++) {
+            $strarr[$i] = $re;
+        }
+
+        if ($begin >= $end || $begin >= $last || $end > $last) return $back;
+        return implode('', $strarr);
+    }
+}
+
+if (!function_exists('build_randstr')) {
+    /**
+     * 获得随机字符串
+     * @param $len             需要的长度
+     * @param $special        是否需要特殊符号
+     * @return string       返回随机字符串
+     */
+    function build_randstr($len = 10, $special = false)
+    {
+        $chars = array(
+            "a",
+            "b",
+            "c",
+            "d",
+            "e",
+            "f",
+            "g",
+            "h",
+            "i",
+            "j",
+            "k",
+            "l",
+            "m",
+            "n",
+            "o",
+            "p",
+            "q",
+            "r",
+            "s",
+            "t",
+            "u",
+            "v",
+            "w",
+            "x",
+            "y",
+            "z",
+            "A",
+            "B",
+            "C",
+            "D",
+            "E",
+            "F",
+            "G",
+            "H",
+            "I",
+            "J",
+            "K",
+            "L",
+            "M",
+            "N",
+            "O",
+            "P",
+            "Q",
+            "R",
+            "S",
+            "T",
+            "U",
+            "V",
+            "W",
+            "X",
+            "Y",
+            "Z",
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+        );
+
+        if ($special) {
+            $chars = array_merge($chars, array(
+                "!",
+                "@",
+                "#",
+                "$",
+                "?",
+                "|",
+                "{",
+                "/",
+                ":",
+                ";",
+                "%",
+                "^",
+                "&",
+                "*",
+                "(",
+                ")",
+                "-",
+                "_",
+                "[",
+                "]",
+                "}",
+                "<",
+                ">",
+                "~",
+                "+",
+                "=",
+                ",",
+                "."
+            ));
+        }
+
+        $charsLen = count($chars) - 1;
+        shuffle($chars);                            //打乱数组顺序
+        $str = '';
+        for ($i = 0; $i < $len; $i++) {
+            $str .= $chars[mt_rand(0, $charsLen)];    //随机取出一位
+        }
+        return $str;
+    }
+}
+
+if (!function_exists('build_upload')) {
+    /**
+     * 上传单图
+     */
+    function build_upload($name)
+    {
+        $result = [
+            'msg' => '未上传图片',
+            'data' => null,
+            'code' => 0
+        ];
+
+        $file = request()->file($name);
+
+        if ($file) {
+            $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+
+            if ($info) {
+                $filename = str_replace('\\', '/', $info->getSaveName());
+
+                $result = [
+                    'msg' => '上传成功',
+                    'data' => '/uploads/' . $filename,
+                    'code' => 1
+                ];
+            } else {
+                $result['msg'] = $file->getError();
+            }
+        }
+
+        return $result;
+    }
+}
+
+if (!function_exists('build_uploads')) {
+    /**
+     * 上传多图
+     */
+    function build_uploads($name)
+    {
+        $result = [
+            'msg' => '未上传图片',
+            'data' => [],
+            'code' => 0
+        ];
+
+        $files = request()->file($name);
+
+        if ($files) {
+            //多张图片
+            foreach ($files as $file) {
+                $info = $file->move(ROOT_PATH . 'public' . DS . 'uploads');
+
+                if ($info) {
+                    $filename = str_replace('\\', '/', $info->getSaveName());
+
+                    $result['msg'] = '上传成功';
+                    $result['code'] = 1;
+                    $result['data'][] = '/uploads/' . $filename;
+                }
+            }
+        }
+
+        return $result;
+    }
+}

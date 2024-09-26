@@ -3,10 +3,10 @@
 <!-- 头部 -->
 <div class="user">
     <div class="avatar wow">
-        <img src="/assets/home/images/avatar.jpg" />
+        <img src="{$AutoLogin.avatar_text}" />
     </div>
 
-    <div class="nickname wow" data-wow-delay="100ms ">FunkyRicky</div>
+    <div class="nickname wow" data-wow-delay="100ms ">{$AutoLogin.nickname}</div>
 </div>
 
 <!-- 菜单 -->
@@ -15,7 +15,7 @@
         <div class="title wow">常用工具</div>
         <div class="list">
             <div class="item wow" data-wow-delay="100ms">
-                <a href="profile.html">
+                <a href="{:url('home/business/profile')}">
                     <img src="/assets/home/images/profile.png" alt="">
                     <div class="name">基本资料</div>
                 </a>
@@ -43,7 +43,7 @@
             </div>
 
             <div class="item wow" data-wow-delay="180ms">
-                <a href="collection.html">
+                <a href="{:url('home/business/collection')}">
                     <img src="/assets/home/images/collection.png" alt="">
                     <div class="name">我的收藏</div>
                 </a>
@@ -71,7 +71,7 @@
             </div>
 
             <div class="item wow" data-wow-delay="240ms">
-                <a href="contact.html">
+                <a href="{:url('home/business/contact')}">
                     <img src="/assets/home/images/contact.png" alt="">
                     <div class="name">联系我们</div>
                 </a>
@@ -131,7 +131,7 @@
                     $('.mui-popup').remove()
 
                     setTimeout(() => {
-                        location.href = 'login.html'
+                        location.href = "{:url('home/index/outlogin')}"
                     }, 500)
                 }
             }
